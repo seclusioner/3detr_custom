@@ -23,9 +23,13 @@ This repository has been forked and modified by seclusioner, with the following 
 - Added shell script files
 
 ## Hardware
-PyTorch version: 1.9.0
-CUDA version: 11.1
-CUDA Device: Quadro RTX 8000
+|       Library       |      Version       |
+|---------------------|--------------------|
+| PyTorch version     | 1.9.0              |
+| CUDA version        | 11.1               |
+| cuDNN version       | 8.0.5              |
+| CUDA Device Name    | Quadro RTX 8000    |
+
 
 ## Custom Dataset
 I have created a pre-set directory structure to transform point cloud data into the format required for the model's input. Most of the code is based on the original source code of SUN RGBD.
