@@ -15,224 +15,39 @@ More details in the paper ["An End-to-End Transformer Model for 3D Object Detect
 ![3DETR Approach](.github/approach.jpg)
 ![Decoder Detections](.github/decoder_detections.jpg)
 
-# Pretrained Models
+# Modifications
+This repository has been forked and modified by seclusioner, with the following changes:
+- Custom dataset (not just benchmark datasets)
+- Added inference and visualization
+- Enhanced functions in the SUNRGBD dataloader
+- Added shell script files
 
-We provide the pretrained model weights and the corresponding metrics on the val set (per class APs, Recalls).
-We provide a Python script [`utils/download_weights.py`](utils/download_weights.py) to easily download the weights/metrics files.
+## Custiom Dataset
+I have created a pre-set directory structure to transform point cloud data into the format required for the model's input. Most of the code is based on the original source code of SUN RGBD.
 
-<table>
-<tr>
-<th>Arch</th>
-<th>Dataset</th>
-<th>Epochs</th>
-<th>AP25</th>
-<th>AP50</th>
-<th>Model weights</th>
-<th>Eval metrics</th>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>SUN RGB-D</td>
-<td>1080</td>
-<td>59.1</td>
-<td>30.3</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep1080.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep1080_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>SUN RGB-D</td>
-<td>1080</td>
-<td>58.0</td>
-<td>30.3</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep1080.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep1080_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>ScanNet</td>
-<td>1080</td>
-<td>65.0</td>
-<td>47.0</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep1080.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep1080_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>ScanNet</td>
-<td>1080</td>
-<td>62.1</td>
-<td>37.9</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep1080.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep1080_metrics.pkl">metrics</a></td>
-</tr>
-</table>
+You may need to modify certain parts of the code (e.g., data paths, class labels, etc.) to fit your specific application. All dataloader code can be found in the datasets directory.
 
-## Model Zoo
+I used [labelCloud](https://ch-sa.github.io/labelCloud/) for 3D object detection labeling, with formats `centroid_rel` and `centroid_abs`. After labeling, ensure that all label files are placed in the pre-set directory.
 
-For convenience, we provide model weights for 3DETR trained for different number of epochs.
+## Training & Testing
+```bash
+./run.sh
+```
 
-<table>
-<tr>
-<th>Arch</th>
-<th>Dataset</th>
-<th>Epochs</th>
-<th>AP25</th>
-<th>AP50</th>
-<th>Model weights</th>
-<th>Eval metrics</th>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>SUN RGB-D</td>
-<td>90</td>
-<td>51.0</td>
-<td>22.0</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep90.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep90_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>SUN RGB-D</td>
-<td>180</td>
-<td>55.6</td>
-<td>27.5</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep180.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep180_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>SUN RGB-D</td>
-<td>360</td>
-<td>58.2</td>
-<td>30.6</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep360.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep360_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>SUN RGB-D</td>
-<td>720</td>
-<td>58.1</td>
-<td>30.4</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep720.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_masked_ep720_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>SUN RGB-D</td>
-<td>90</td>
-<td>43.7</td>
-<td>16.2</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep90.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep90_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>SUN RGB-D</td>
-<td>180</td>
-<td>52.1</td>
-<td>25.8</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep180.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep180_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>SUN RGB-D</td>
-<td>360</td>
-<td>56.3</td>
-<td>29.6</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep360.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep360_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>SUN RGB-D</td>
-<td>720</td>
-<td>56.0</td>
-<td>27.8</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep720.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/sunrgbd_ep720_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>ScanNet</td>
-<td>90</td>
-<td>47.1</td>
-<td>19.5</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep90.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep90_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>ScanNet</td>
-<td>180</td>
-<td>58.7</td>
-<td>33.6</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep180.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep180_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>ScanNet</td>
-<td>360</td>
-<td>62.4</td>
-<td>37.7</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep360.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep360_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR-m</td>
-<td>ScanNet</td>
-<td>720</td>
-<td>63.7</td>
-<td>44.5</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep720.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_masked_ep720_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>ScanNet</td>
-<td>90</td>
-<td>42.8</td>
-<td>15.3</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep90.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep90_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>ScanNet</td>
-<td>180</td>
-<td>54.5</td>
-<td>28.8</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep180.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep180_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>ScanNet</td>
-<td>360</td>
-<td>59.0</td>
-<td>35.4</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep360.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep360_metrics.pkl">metrics</a></td>
-</tr>
-<tr>
-<td>3DETR</td>
-<td>ScanNet</td>
-<td>720</td>
-<td>61.1</td>
-<td>40.2</td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep720.pth">weights</a></td>
-<td><a href="https://dl.fbaipublicfiles.com/3detr/checkpoints/scannet_ep720_metrics.pkl">metrics</a></td>
-</tr>
-</table>
+## Inference
 
+``` bash
+./demo.sh
+```
+
+## TODO
+- environment setup scripts (.sh or Dockerfile)
+- More data format support
 
 # Running 3DETR
 
 ## Installation
-Our code is tested with PyTorch 1.9.0, CUDA 10.2 and Python 3.6. It may work with other versions.
+Our code is tested with PyTorch 1.9.0, CUDA 10.2 and Python 3.6. It may work with other versions. You can check the CUDA & Pytorch version by running `torch_test.py`
 
 You will need to install `pointnet2` layers by running
 
@@ -258,7 +73,6 @@ Some users have experienced issues using CUDA 11 or higher. Please try using CUD
 conda install cython
 cd utils && python cython_compile.py build_ext --inplace
 ```
-
 
 # Benchmarking
 
@@ -296,7 +110,6 @@ A variance of 1% AP25 across different training runs can be expected.
 
 You can quickly verify your installation by training a 3DETR model for 90 epochs on ScanNet following the file `scripts/scannet_quick.sh` and compare it to the pretrained checkpoint from the Model Zoo.
 
-
 ## License
 The majority of 3DETR is licensed under the Apache 2.0 license as found in the [LICENSE](LICENSE) file, however portions of the project are available under separate license terms: licensing information for pointnet2 is available at https://github.com/erikwijmans/Pointnet2_PyTorch/blob/master/UNLICENSE
 
@@ -304,8 +117,6 @@ The majority of 3DETR is licensed under the Apache 2.0 license as found in the [
 We welcome your pull requests! Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for more info.
 
 ## Citation
-If you find this repository useful, please consider starring :star: us and citing
-
 ```
 @inproceedings{misra2021-3detr,
     title={{An End-to-End Transformer Model for 3D Object Detection}},
