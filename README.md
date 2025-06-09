@@ -22,7 +22,7 @@ This repository has been forked and modified by seclusioner, with the following 
 - Enhanced functions in the SUNRGBD dataloader
 - Added shell script files
 
-## Custiom Dataset
+## Custom Dataset
 I have created a pre-set directory structure to transform point cloud data into the format required for the model's input. Most of the code is based on the original source code of SUN RGBD.
 
 You may need to modify certain parts of the code (e.g., data paths, class labels, etc.) to fit your specific application. All dataloader code can be found in the datasets directory.
