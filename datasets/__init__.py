@@ -1,11 +1,15 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
+"""
+Change by D.S.: add the custom dataset class (Dataset & Config)
+"""
 from .scannet import ScannetDetectionDataset, ScannetDatasetConfig
 from .sunrgbd import SunrgbdDetectionDataset, SunrgbdDatasetConfig
-
+from .custom import PointCloudDataset, PointCloudConfig
 
 DATASET_FUNCTIONS = {
     "scannet": [ScannetDetectionDataset, ScannetDatasetConfig],
     "sunrgbd": [SunrgbdDetectionDataset, SunrgbdDatasetConfig],
+    "custom": [PointCloudDataset, PointCloudConfig]
 }
 
 
@@ -18,7 +22,7 @@ def build_dataset(args):
             dataset_config, 
             split_set="train", 
             root_dir=args.dataset_root_dir, 
-            meta_data_dir=args.meta_data_dir, 
+            # meta_data_dir=args.meta_data_dir, 
             use_color=args.use_color,
             augment=True
         ),
