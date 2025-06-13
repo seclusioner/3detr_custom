@@ -108,9 +108,9 @@ class PositionEmbeddingCoordsSine(nn.Module):
             xyz = shift_scale_points(xyz, src_range=input_range)
 
         xyz *= 2 * np.pi
-        xyz_proj = torch.mm(xyz.view(-1, d_in), self.gauss_B[:, :d_out]).view(
+        xyz_proj = torch.mm(xyz.view(-1, d_in).float(), self.gauss_B[:, :d_out].float()).view(
             bsize, npoints, d_out
-        )
+        ) # pending
         final_embeds = [xyz_proj.sin(), xyz_proj.cos()]
 
         # return batch x d_pos x npoints embedding
