@@ -50,7 +50,7 @@ I used [labelCloud](https://ch-sa.github.io/labelCloud/) for 3D object detection
 ```
 
 ## TODO
-- environment setup scripts (.sh or Dockerfile)
+- Add pre-trained model training on custom dataset
 - More data format support
 
 # Running 3DETR
