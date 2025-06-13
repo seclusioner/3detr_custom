@@ -327,7 +327,7 @@ class SetCriterion(nn.Module):
 
         outputs["gious"] = gious
         center_dist = torch.cdist(
-            outputs["center_normalized"], targets["gt_box_centers_normalized"], p=1
+            outputs["center_normalized"].double(), targets["gt_box_centers_normalized"].double(), p=1
         )
         outputs["center_dist"] = center_dist
         assignments = self.matcher(outputs, targets)
