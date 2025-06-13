@@ -7,4 +7,4 @@
 # python demo_custom.py --test_ckpt "outputs/custom_ep1080/checkpoint_best.pth"
 DATASET="custom"
 PRE_TRAIN="outputs/custom_ep1080/checkpoint_best.pth"
-python test.py --test_ckpt $PRE_TRAIN
+python demo_custom.py --test_ckpt $PRE_TRAIN
