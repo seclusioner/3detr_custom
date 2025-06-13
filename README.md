@@ -30,6 +30,13 @@ This repository has been forked and modified by seclusioner, with the following 
 | cuDNN version       | 8.0.5              |
 | CUDA Device Name    | Quadro RTX 8000    |
 
+## Docker
+I created a Dockerfile for users to set up the environment. If you're familiar with Docker, you can use the following commands to build the environment. If there’s anything missing, feel free to modify or add it as needed.
+
+``` bash
+docker build -t 3detr-env .
+docker run --gpus all -it 3detr_image /bin/bash
+```
 
 ## Custom Dataset
 I have created a pre-set directory structure to transform point cloud data into the format required for the model's input. Most of the code is based on the original source code of SUN RGBD.
