@@ -94,6 +94,7 @@ def make_args_parser():
     ##### Testing #####
     parser.add_argument("--test_only", default=True, action="store_true")  # 僅進行推理
     parser.add_argument("--test_ckpt", required=True, type=str, help="Path to the checkpoint model for testing")
+    parser.add_argument("--output", default="3D", required=True, type=str, help="Decide output result is 2D or 3D")
 
     ##### I/O #####
     parser.add_argument("--log_dir", default='log', help='Log directory for saving results')
@@ -359,8 +360,10 @@ def inference(args, model, point_cloud_np, idx):
     final_labels = filtered_labels[nms_indices]  # shape: (num_nms_boxes, num_classes)
     final_scores = filtered_scores[nms_indices]  # shape: (num_nms_boxes)
     ##################################
-    demo(final_boxes, final_labels, final_scores, idx) # 2D
-    # visualize_3d_boxes(final_boxes, final_labels, final_scores, point_cloud_np[0]) # 3D
+    if args.output=="3D":
+        visualize_3d_boxes(final_boxes, final_labels, final_scores, point_cloud_np[0]) # 3D
+    elif args.output=="2D":
+        proj_on_img(final_boxes, final_labels, final_scores, idx) # 2D
 
 # point cloud visualization
 def visualize_3d_boxes(boxes, labels, scores, points, output_pcd_path=f"{OUTPUT_DIR}output_pcd.ply", output_box_path=f"{OUTPUT_DIR}output_boxes.ply"):
@@ -407,7 +410,7 @@ def visualize_3d_boxes(boxes, labels, scores, points, output_pcd_path=f"{OUTPUT_
     o3d.io.write_line_set(output_box_path, line_set)
     print(f"3D boxes saved to {output_box_path}")
 
-def demo(boxes, labels, scores, idx, output_path=f"{OUTPUT_DIR}output.png"):
+def proj_on_img(boxes, labels, scores, idx, output_path=f"{OUTPUT_DIR}output.png"):
     calib = custom_utils.Custom_Calibration(f"{PATH}calib/calib.txt")
     image_path = f"datasets/votenet/custom/custom_trainval/image/{idx}.png" # images = [f for f in os.listdir("Inputs/image/") if f.endswith('.png')]
 
