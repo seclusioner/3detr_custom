@@ -62,23 +62,15 @@ class PointCloudConfig(object):
         self.num_semcls = len(CLASS)
         self.num_angle_bin = 12
         self.max_num_obj = 64
-        self.type2class = {
-            "box": 0,
-            "person": 1,
-            "stacker": 2,
-            "cart": 3,
-            "others": 4,
-        }
-        self.class2type = {self.type2class[t]: t for t in self.type2class}
-
-        # One-hot encoding
-        self.type2onehotclass = {
-            "box": 0, # [1, 0, 0, 0, 0]
-            "person": 1, # [0, 1, 0, 0, 0]
-            "stacker": 2, # [0, 0, 1, 0, 0]
-            "cart": 3, # [0, 0, 0, 1, 0]
-            "others": 4, # [0, 0, 0, 0, 1]
-        }
+        
+        # type -> class index
+        self.type2class = {cls: idx for idx, cls in enumerate(CLASS)}
+        
+        # class index -> type
+        self.class2type = {idx: cls for idx, cls in enumerate(CLASS)}
+        
+        # type -> onehot index (本質上跟 type2class 一樣)
+        self.type2onehotclass = {cls: idx for idx, cls in enumerate(CLASS)}
 
     def angle2class(self, angle):
         """將連續角度轉換為離散角度類別"""
