@@ -22,11 +22,11 @@ class PointCloudConfig(object):
         self.num_heading_bin = 12
         self.num_size_cluster = len(CLASS) # pending
 
-        self.type2class={'box': 0, 'person': 1, 'stacker': 2, 'cart': 3, 'others': 4}
-        self.class2type = {self.type2class[t]:t for t in self.type2class}
-        self.type2onehotclass={'box': 0, 'person': 1, 'stacker': 2, 'cart': 3, 'others': 4}
+        self.type2class = {t: i for i, t in enumerate(CLASS)}
+        self.class2type = {i: t for i, t in enumerate(CLASS)}
+        self.type2onehotclass = {t: i for i, t in enumerate(CLASS)}
 
-        # get_box3d_dim_statistics()
+        # # python custom_data --compute_median_size
         self.type_mean_size = { 
             'box': np.array([2.285933,1.838652,2.964889]),
             'cart': np.array([2.100069,1.361659,1.480399]),
